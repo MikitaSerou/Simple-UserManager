@@ -13,19 +13,24 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>task4itr</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>11</java.version>
         <bootstrap.version>4.6.0-1</bootstrap.version>
+    <!--    <resource>
+            <directory>src/main/webapp</directory>
+        </resource>-->
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

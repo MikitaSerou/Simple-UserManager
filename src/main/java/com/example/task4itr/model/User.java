@@ -1,14 +1,22 @@
 package com.example.task4itr.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -27,5 +35,15 @@ public class User {
 
     @Column(name = "active", nullable = false)
     private Boolean isActive;
+
+    public User(String userName, String password, String email, LocalDate registrationDate,
+                LocalDate lastLoginDate, Boolean isActive) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.registrationDate = registrationDate;
+        this.lastLoginDate = lastLoginDate;
+        this.isActive = isActive;
+    }
 
 }
