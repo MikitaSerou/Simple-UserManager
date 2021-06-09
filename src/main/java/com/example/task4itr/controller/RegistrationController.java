@@ -1,0 +1,20 @@
+package com.example.task4itr.controller;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/registration")
+@Slf4j
+public class RegistrationController {
+
+    @GetMapping
+    public String home() {
+
+        // userRepository.save(user);
+        log.info("GET request /registration");
+        return "registration";
+    }
+}

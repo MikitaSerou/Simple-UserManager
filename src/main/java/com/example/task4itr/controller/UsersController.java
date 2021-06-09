@@ -1,13 +1,11 @@
-package com.example.task4itr;
+package com.example.task4itr.controller;
 
-import com.example.task4itr.model.User;
 import com.example.task4itr.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/")
@@ -17,13 +15,13 @@ public class UsersController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
-        User user = new User("Nikita","kek",
-                "mikita.serou@gmail.com", LocalDate.now(), LocalDate.now(), true);
-        log.error(user.toString());
+
        // userRepository.save(user);
-        log.info("Hello controller");
+        log.info("GET request /");
         return "users_table";
     }
+
+
 }
