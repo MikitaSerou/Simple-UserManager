@@ -1,6 +1,6 @@
-package com.example.task4itr.enums;
+package com.example.task4itr.model;
 
-import com.example.task4itr.model.User;
+
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 

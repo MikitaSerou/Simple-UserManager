@@ -1,7 +1,6 @@
 package com.example.task4itr.model;
 
 
-import com.example.task4itr.enums.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
