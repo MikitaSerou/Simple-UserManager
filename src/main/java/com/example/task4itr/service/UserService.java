@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +25,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
-//    @Autowired
-//    PasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -45,14 +47,21 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean saveUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()) != null &
+        if (userRepository.findByEmail(user.getEMail()) != null &
                 userRepository.findByUsername(user.getUsername()) != null) {
             return false;
         }
-        user.setRole(roleRepository.findByName("ROLE_USER"));
-   //     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user = setInitRegistrationParameters(user);
         userRepository.save(user);
         return true;
+    }
+
+    public User setInitRegistrationParameters(User user) {
+        user.setRole(roleRepository.findByName("ROLE_USER"));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRegistrationDate(LocalDate.now());
+        user.setIsLocked(false);
+        return user;
     }
 
     public boolean deleteUser(Long userId) {

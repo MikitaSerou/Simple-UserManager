@@ -4,6 +4,8 @@ import com.example.task4itr.model.User;
 import com.example.task4itr.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -20,30 +24,48 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     @Autowired
+    @Qualifier("userService")
     private UserService userService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @GetMapping
     public String registration(Model model) {
         log.info("GET request /registration");
-        model.addAttribute("userForm", new User());
+        model.addAttribute("registrationForm", new User());
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping
     public String addUser(@ModelAttribute("registrationForm") @Valid User registrationForm,
                           BindingResult bindingResult,
-                          Model model){
-        if (bindingResult.hasErrors()){
+                          HttpServletRequest request,
+                          Model model) {
+        String notEncryptedPass = registrationForm.getPassword();
+
+        //TODO вынести валидацию в отдельный класс
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (!registrationForm.getPassword().equals(registrationForm.getPasswordConfirm())){
+        if (!registrationForm.getPassword().equals(registrationForm.getPasswordConfirm())) {
             model.addAttribute("passwordsError", "password.match.error");
             return "registration";
         }
-        if(!userService.saveUser(registrationForm)){
+        if (!userService.saveUser(registrationForm)) {
             model.addAttribute("notUniqueError", "unique.error");
             return "registration";
         }
-        return "redirect:/"; //TODO Возможно изменятся URL
+        authenticateUser(registrationForm.getUsername(), notEncryptedPass, request);
+        return "redirect:/users";
+    }
+
+    private void authenticateUser(String username, String password, HttpServletRequest request) {
+        System.err.println(username + " | " + password);
+        try {
+            request.login(username, password);
+        } catch (ServletException ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -19,5 +19,6 @@
 <body>
 <jsp:include page="templates/navbar.jsp"/>
 HELLO
+<h1>${currentUser.username}</h1>
 </body>
 </html>

@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <title><spring:message code="registration.title"/></title>
     <link href='<spring:url value="/css/light.css"/>' rel="stylesheet"/>
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -18,7 +18,6 @@
 </head>
 <body>
 <jsp:include page="templates/navbar.jsp"/>
-<spring:message code="registration.title"/>
 <div class="container" style="min-height: 80%">
     <div class="row justify-content-center align-items-center">
     </div>
@@ -27,22 +26,22 @@
         <div class="col-sm-6" style="backdrop-filter: blur(7px); border-radius: 30px">
             <h1 align="center"><spring:message code="signUp.entrance.page"/></h1>
             <br/>
-            <form:form action="${pageContext.request.contextPath}/registration" method="post"
+            <form:form action="${pageContext.request.contextPath}/registration/" method="post"
                        modelAttribute="registrationForm">
                 <div class="form-group">
                     <label for="formGroupExampleInput1"><spring:message code="username"/></label>
                     <spring:message code="username" var="userName"/>
                     <form:input type="text" class="form-control" name="userName" id="formGroupExampleInput1"
-                                placeholder='${userName}' path="userName"/>
-                    <form:errors path="userName" cssClass="error"/>
-                    <span class="error"><spring:message code="${uniqueError}"/></span>
+                                placeholder='${userName}' path="username"/>
+                    <form:errors path="username" cssClass="error"/>
+             <%--       <span class="error"><spring:message code="${notUniqueError}"/></span>--%>
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2"><spring:message code="eMail"/></label>
-                    <spring:message code="eMail" var="eMail"/>
-                    <form:input type="text" class="form-control" name="eMail" id="formGroupExampleInput2"
-                                placeholder='${eMail}' path="eMail"/>
-                    <form:errors path="eMail" cssClass="error"/>
+                    <spring:message code="eMail" var="email"/>
+                    <form:input type="text" class="form-control" name="email" id="formGroupExampleInput2"
+                                placeholder='${email}' path="email"/>
+                    <form:errors path="email" cssClass="error"/>
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput4"><spring:message code="password"/></label>
@@ -59,7 +58,7 @@
                                 id="formGroupExampleInput5"
                                 placeholder='${passwordConfirm}'/>
                     <form:errors path="passwordConfirm" cssClass="error"/>
-                    <span class="error"><spring:message code="${passwordsError}"/></span>
+                   <%-- <span class="error"><spring:message code="${passwordsError}"/></span>--%>
                 </div>
                 <div class="row justify-content-md-center">
                     <br/>
