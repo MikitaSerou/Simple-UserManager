@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
 @Slf4j
 public class UsersController {
 
@@ -22,6 +22,7 @@ public class UsersController {
     public String home(@AuthenticationPrincipal UserDetails user,
                        Model model) {
         model.addAttribute("currentUser", user);
+        model.addAttribute("users", userRepository.findAll());
         log.info("GET request /");
         return "users_table";
     }

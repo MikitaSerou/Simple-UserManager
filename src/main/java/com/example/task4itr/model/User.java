@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -36,10 +37,10 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "registration_date", nullable = false)
-    private LocalDate registrationDate;
+    private LocalDateTime registrationDate;
 
     @Column(name = "last_login_date")
-    private LocalDate lastLoginDate;
+    private LocalDateTime lastLoginDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
@@ -48,8 +49,8 @@ public class User implements UserDetails {
     @Column(name = "account_non_locked", nullable = false)
     private Boolean isLocked;
 
-    public User(String username, String password, String email, LocalDate registrationDate,
-                LocalDate lastLoginDate, Boolean isLocked) {
+    public User(String username, String password, String email, LocalDateTime registrationDate,
+                LocalDateTime lastLoginDate, Boolean isLocked) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -78,7 +79,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        System.err.println("isAccountNonLocked: " + isLocked);
         return !isLocked;
     }
 
@@ -108,11 +108,11 @@ public class User implements UserDetails {
         return this.email;
     }
 
-    public LocalDate getRegistrationDate() {
+    public LocalDateTime getRegistrationDate() {
         return this.registrationDate;
     }
 
-    public LocalDate getLastLoginDate() {
+    public LocalDateTime getLastLoginDate() {
         return this.lastLoginDate;
     }
 
@@ -121,7 +121,6 @@ public class User implements UserDetails {
     }
 
     public Boolean getIsLocked() {
-        System.err.println(isLocked);
         return this.isLocked;
     }
 
@@ -161,11 +160,11 @@ public class User implements UserDetails {
         this.email = eMail;
     }
 
-    public void setRegistrationDate(LocalDate registrationDate) {
+    public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
 
-    public void setLastLoginDate(LocalDate lastLoginDate) {
+    public void setLastLoginDate(LocalDateTime lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
     }
 

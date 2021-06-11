@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,11 +42,15 @@ public class UserService implements UserDetailsService {
         return userFromDB.orElse(new User());
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
     public List<User> allUsers() {
         return (List<User>) userRepository.findAll();
     }
 
-    public boolean saveUser(User user) {
+    public boolean addNewUser(User user) {
         if (userRepository.findByEmail(user.getEMail()) != null &
                 userRepository.findByUsername(user.getUsername()) != null) {
             return false;
@@ -59,7 +63,7 @@ public class UserService implements UserDetailsService {
     public User setInitRegistrationParameters(User user) {
         user.setRole(roleRepository.findByName("ROLE_USER"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRegistrationDate(LocalDate.now());
+        user.setRegistrationDate(LocalDateTime.now());
         user.setIsLocked(false);
         return user;
     }

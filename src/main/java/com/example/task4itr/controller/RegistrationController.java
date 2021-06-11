@@ -52,16 +52,15 @@ public class RegistrationController {
             model.addAttribute("passwordsError", "password.match.error");
             return "registration";
         }
-        if (!userService.saveUser(registrationForm)) {
+        if (!userService.addNewUser(registrationForm)) {
             model.addAttribute("notUniqueError", "unique.error");
             return "registration";
         }
         authenticateUser(registrationForm.getUsername(), notEncryptedPass, request);
-        return "redirect:/users";
+        return "redirect:/";
     }
 
     private void authenticateUser(String username, String password, HttpServletRequest request) {
-        System.err.println(username + " | " + password);
         try {
             request.login(username, password);
         } catch (ServletException ex) {
