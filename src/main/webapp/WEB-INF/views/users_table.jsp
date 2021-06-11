@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<c:url value="/js/UltimateCheckbox.js" />"></script>
+
 </head>
 <body>
 <jsp:include page="templates/navbar.jsp"/>
@@ -23,11 +23,14 @@
     <br/>
     <br/>
     <br/>
-    <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="position: fixed; right: 0; ">
-        <button type="button" class="btn btn-danger">Left</button>
-        <button type="button" class="btn btn-warning">Middle</button>
-        <button type="button" class="btn btn-success">Right</button>
-    </div>
+    <form id="deleteCityForm${city.id}" name="userManagementForm" enctype="text/plain">
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="position: fixed; right: 0; ">
+
+            <input id="deleteUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/delete">
+            <button id="deleteButton" type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-warning">Middle</button>
+            <button type="button" class="btn btn-success">Right</button>
+        </div>
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -45,18 +48,20 @@
             <td scope="col"><h5><spring:message code="status"/></h5></td>
         </tr>
         </thead>
+
         <c:forEach var="user" items="${users}">
             <c:choose>
                 <c:when test="${user.isLocked}">
-                    <tr class="table-danger">
+                    <tr id="row${user.id}" class="table-danger">
                 </c:when>
                 <c:otherwise>
-                   <tr>
+                   <tr id="row${user.id}">
                 </c:otherwise>
             </c:choose>
                 <td style="content-align: center">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="chose">
+                        <input class="form-check-input" type="checkbox" id="chose" name="userId"
+                               value="${user.id}">
                     </div>
                 </td>
                 <td>${user.id}</td>
@@ -83,15 +88,11 @@
 
                 <td><fmt:parseDate value="${user.lastLoginDate}" pattern="yyyy-MM-dd'T'HH:mm"
                                    var="parsedDateTime" type="both"/>
-                    <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDateTime}"/>
                 </td>
-                <td>
+                <td id="statusCell${user.id}">
                     <c:if test="${user.isLocked}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-lock" viewBox="0 0 16 16">
-                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2
-                            2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1
-                            1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"></path>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
                         </svg>
                         <spring:message code="status.blocked"/>
                     </c:if>
@@ -107,7 +108,43 @@
             </tr>
         </c:forEach>
     </table>
+    </form>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('button#deleteButton[type=submit]').click(function (e) {
+            console.log("Delete ajax");
+            e.preventDefault();
+            var form = document.forms['userManagementForm'];
+            var formData = new FormData(form);
+            var ajaxReq = $.ajax({
+                url:document.getElementById('deleteUrl').value,
+                type: 'DELETE',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                xhr: function () {
+                    var xhr = $.ajaxSettings.xhr();
+                    return xhr;
+                },
+            });
+            ajaxReq.done(function (msg) {
+               formData.getAll('userId').forEach(element => {
+                       jQuery('#row' + element).hide(700);
+        /*           jQuery('#row' + element.toString()).addClass("table-danger");
+                       jQuery('#statusCell' + element.toString()).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">' +
+                           ' <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>' +
+                           ' </svg><spring:message code="status.blocked"/>');*/
+               }
+               );
+            });
+            ajaxReq.fail(function (jqXHR) {
+            console.log("Error when try to delete user vith id:" + element)
+            });
+        });
+    });
+</script>
 <script type="text/javascript">
     $("#checkAll").change(function () {
         if ($(this).is(':checked'))

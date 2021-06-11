@@ -5,6 +5,8 @@ import com.example.task4itr.repository.RoleRepository;
 import com.example.task4itr.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -74,6 +76,23 @@ public class UserService implements UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    public ResponseEntity<String> deleteUserById(Long id) {
+        log.info("deleteUserById(Long " + id + ")");
+        if (id == null) {
+            log.error("User id (" + id + ") is not defined");
+            return new ResponseEntity<>("Invalid Id: " + id, HttpStatus.BAD_REQUEST);
+        } else {
+            if (!userRepository.existsById(id)) {
+                log.error("User with this id (" + id + ") is not exist");
+                return new ResponseEntity<>("No Users with this id:" + id, HttpStatus.BAD_REQUEST);
+            }
+        }
+        log.info("Delete user with id: " + id);
+        userRepository.deleteById(id);
+
+        return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
     }
 
     public void lockUser(Long userId) {
