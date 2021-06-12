@@ -28,7 +28,7 @@ public class RegistrationController {
     private UserService userService;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @GetMapping
     public String registration(Model model) {

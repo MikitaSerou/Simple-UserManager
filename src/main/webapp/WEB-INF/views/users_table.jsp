@@ -48,7 +48,6 @@
                 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
             </svg></button>
         </div>
-
         <thead>
         <tr>
             <td scope="col">
@@ -104,7 +103,6 @@
                 <td><fmt:parseDate value="${user.lastLoginDate}" pattern="yyyy-MM-dd'T'HH:mm"
                                    var="parsedLastLoginDateTime" type="both"/>
                     <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedLastLoginDateTime}"/></td>
-                </td>
                 <td id="statusCell${user.id}">
                     <c:if test="${user.isLocked}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -128,126 +126,9 @@
     </table>
     </form>
 </div>
-<script type="text/javascript">
-    $(function () {
-        var currId = document.getElementById('currentUserId').value;
-        console.log(currId)
-        $('button#deleteButton[type=submit]').click(function (e) {
-            console.log("Delete ajax");
-            e.preventDefault();
-            var form = document.forms['userManagementForm'];
-            var formData = new FormData(form);
-            var ajaxReq = $.ajax({
-                url:document.getElementById('deleteUrl').value,
-                type: 'DELETE',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                xhr: function () {
-                    var xhr = $.ajaxSettings.xhr();
-                    return xhr;
-                },
-            });
-            ajaxReq.done(function (msg) {
-               formData.getAll('userId').forEach(element => {
-                       if(element === currId){
-                           window.location = "/logout";
-                       }
-                       jQuery('#row' + element).hide(700);
-               }
-               );
-            });
-            ajaxReq.fail(function (jqXHR) {
-            console.log("Error when try to delete users")
-            });
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        var currId = document.getElementById('currentUserId').value;
-        console.log(currId)
-        $('button#blockButton[type=submit]').click(function (e) {
-            console.log("Block ajax");
-            e.preventDefault();
-            var form = document.forms['userManagementForm'];
-            var formData = new FormData(form);
-            var ajaxReq = $.ajax({
-                url:document.getElementById('blockUrl').value,
-                type: 'PATCH',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                xhr: function () {
-                    var xhr = $.ajaxSettings.xhr();
-                    return xhr;
-                },
-            });
-            ajaxReq.done(function (msg) {
-                formData.getAll('userId').forEach(element => {
-                        if(element === currId){
-                            window.location = "/logout";
-                        }
-                    jQuery('#row' + element.toString()).addClass("table-warning");
-                    jQuery('#statusCell' + element.toString()).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" ' +
-                        'height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">' +
-                                           ' <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2' +
-                        ' 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>' +
-                                           ' </svg><spring:message code="status.blocked"/>');
-                    }
-                );
-            });
-            ajaxReq.fail(function (jqXHR) {
-                console.log("Error when try to block  users")
-            });
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        $('button#unlockButton[type=submit]').click(function (e) {
-            console.log("Unlock ajax");
-            e.preventDefault();
-            var form = document.forms['userManagementForm'];
-            var formData = new FormData(form);
-            var ajaxReq = $.ajax({
-                url:document.getElementById('unlockUrl').value,
-                type: 'PATCH',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                xhr: function () {
-                    var xhr = $.ajaxSettings.xhr();
-                    return xhr;
-                },
-            });
-            ajaxReq.done(function (msg) {
-                formData.getAll('userId').forEach(element => {
-                        jQuery('#row' + element.toString()).removeClass("table-warning");
-                        jQuery('#statusCell' + element.toString()).html('<svg xmlns="http://www.w3.org/2000/svg"' +
-                            ' width="16" height="16" fill="currentColor"class="bi bi-check2" viewBox="0 0 16 16">' +
-                            ' <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1.708-' +
-                            '.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path> </svg>' +
-                            ' </svg><spring:message code="status.active"/>');
-                    }
-                );
-            });
-            ajaxReq.fail(function (jqXHR) {
-                console.log("Error when try to block  users")
-            });
-        });
-    });
-</script>
-<script type="text/javascript">
-    $("#checkAll").change(function () {
-        if ($(this).is(':checked'))
-            $(".form-check-input").attr('checked', true);
-        else
-            $(".form-check-input").removeAttr('checked');
-    });
-</script>
+<script src="<c:url value="/js/checkBoxScript.js"/>"></script>
+<script src="<c:url value="/js/blockScript.js"/>"></script>
+<script src="<c:url value="/js/unblockScript.js"/>"></script>
+<script src="<c:url value="/js/deleteScript.js"/>"></script>
 </body>
 </html>

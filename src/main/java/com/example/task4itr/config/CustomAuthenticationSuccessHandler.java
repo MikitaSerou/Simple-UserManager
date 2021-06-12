@@ -21,7 +21,7 @@ public class CustomAuthenticationSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -30,7 +30,6 @@ public class CustomAuthenticationSuccessHandler extends
         log.info("Auth");
         User user = (User) userService.loadUserByUsername(authentication.getName());
         user.setLastLoginDate(LocalDateTime.now());
-        System.err.println(user.getLastLoginDate());
         userService.saveUser(user);
     }
 }

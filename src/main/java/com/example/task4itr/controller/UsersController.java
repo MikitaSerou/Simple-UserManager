@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class UsersController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     public String home(@AuthenticationPrincipal UserDetails user, Model model) {

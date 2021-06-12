@@ -18,10 +18,10 @@ import org.springframework.security.web.context.NullSecurityContextRepository;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsService userService;
+    private UserDetailsService userService;
 
     @Autowired
-    CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

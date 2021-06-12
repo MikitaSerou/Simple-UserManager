@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
     private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
-        log.info("Save User");
+        log.info("Save User: " + user.toString());
         userRepository.save(user);
     }
 
@@ -80,21 +80,16 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public ResponseEntity<String> deleteUserById(Long id) {
+    public void deleteUserById(Long id) {
         log.info("deleteUserById(Long " + id + ")");
         if (id == null) {
             log.error("User id (" + id + ") is not defined");
-            return new ResponseEntity<>("Invalid Id: " + id, HttpStatus.BAD_REQUEST);
-        } else {
-            if (!userRepository.existsById(id)) {
+        } else if (!userRepository.existsById(id)){
                 log.error("User with this id (" + id + ") is not exist");
-                return new ResponseEntity<>("No Users with this id:" + id, HttpStatus.BAD_REQUEST);
-            }
+        }else{
+            log.info("Delete user with id: " + id);
+            userRepository.deleteById(id);
         }
-        log.info("Delete user with id: " + id);
-        userRepository.deleteById(id);
-
-        return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
     }
 
     public void blockUser(Long userId) {
