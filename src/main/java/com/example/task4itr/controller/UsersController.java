@@ -13,6 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/")
 @Slf4j
@@ -22,30 +27,34 @@ public class UsersController {
     UserService userService;
 
     @GetMapping
-    public String home(@AuthenticationPrincipal UserDetails user,
-                       Model model) {
+    public String home(@AuthenticationPrincipal UserDetails user, Model model) {
         log.info("GET request /");
         model.addAttribute("currentUser", user);
         model.addAttribute("users", userService.allUsers());
-        deleteAuthenticationWhenUserHasBeenDeleted((User) user);
         return "users_table";
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteUsers(@RequestParam("userId") Long[] usersIds, Model model) { //TODO обозвать по другому
+    public ResponseEntity<String> deleteUsers(@RequestParam("userId") Long[] usersIds) {
         log.warn("DELETE request /delete");
-        UserDetails u = (UserDetails) model.getAttribute("currentUser");
-        for (Long id : usersIds) {
-         userService.deleteUserById(id);
-        }
+        Arrays.stream(usersIds).forEach(id -> userService.deleteUserById(id));
         return new ResponseEntity<>("Users deleted successfully.", HttpStatus.OK);
     }
 
-    private void deleteAuthenticationWhenUserHasBeenDeleted(User currentUser){
-        if (userService.findUserByID(currentUser.getId()) == null){
-            SecurityContextHolder.getContext().setAuthentication(null);
-        }
+    @PatchMapping("/unlock")
+    @ResponseBody
+    public ResponseEntity<String> unlockUsers(@RequestParam("userId") Long[] usersIds) {
+        log.warn("PATCH request /unlock");
+        Arrays.stream(usersIds).forEach(id -> userService.unlockUser(id));
+        return new ResponseEntity<>("Users unlocked successfully.", HttpStatus.OK);
     }
 
+    @PatchMapping("/block")
+    @ResponseBody
+    public ResponseEntity<String> blockUsers(@RequestParam("userId") Long[] usersIds) {
+        log.warn("PATCH request /block");
+        Arrays.stream(usersIds).forEach(id -> userService.blockUser(id));
+        return new ResponseEntity<>("Users blocked successfully.", HttpStatus.OK);
+    }
 }

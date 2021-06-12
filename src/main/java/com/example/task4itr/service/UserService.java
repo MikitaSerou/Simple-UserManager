@@ -45,6 +45,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
+        log.info("Save User");
         userRepository.save(user);
     }
 
@@ -58,7 +59,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
         user = setInitRegistrationParameters(user);
-        userRepository.save(user);
+        saveUser(user);
         return true;
     }
 
@@ -66,6 +67,7 @@ public class UserService implements UserDetailsService {
         user.setRole(roleRepository.findByName("ROLE_USER"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRegistrationDate(LocalDateTime.now());
+        user.setLastLoginDate(LocalDateTime.now());
         user.setIsLocked(false);
         return user;
     }
@@ -95,20 +97,22 @@ public class UserService implements UserDetailsService {
         return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
     }
 
-    public void lockUser(Long userId) {
+    public void blockUser(Long userId) {
         userRepository.findById(userId)
                 .ifPresentOrElse(u -> {
                     if (u.isAccountNonLocked()) {
                         u.setIsLocked(true);
+                        userRepository.save(u);
                         log.info("User with Id " + userId + " has been locked");
                     }
                 }, () -> log.error("User with this Id " + userId + " is not exist"));
     }
 
-    private void unlockUser(Long userId) {
+    public void unlockUser(Long userId) {
         userRepository.findById(userId).ifPresentOrElse(u -> {
             if (!u.isAccountNonLocked()) {
                 u.setIsLocked(false);
+                userRepository.save(u);
                 log.info("User with Id " + userId + " has been unlocked");
             }
         }, () -> log.error("User with this Id " + userId + " is not exist"));

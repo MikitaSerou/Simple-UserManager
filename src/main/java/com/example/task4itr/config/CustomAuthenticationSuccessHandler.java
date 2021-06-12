@@ -1,7 +1,8 @@
-package com.example.task4itr.service;
+package com.example.task4itr.config;
 
 
 import com.example.task4itr.model.User;
+import com.example.task4itr.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,11 +26,12 @@ public class CustomAuthenticationSuccessHandler extends
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
+        super.onAuthenticationSuccess(request, response, authentication);
+        log.info("Auth");
         User user = (User) userService.loadUserByUsername(authentication.getName());
         user.setLastLoginDate(LocalDateTime.now());
+        System.err.println(user.getLastLoginDate());
         userService.saveUser(user);
-        super.onAuthenticationSuccess(request, response, authentication);
-
     }
 }
 
