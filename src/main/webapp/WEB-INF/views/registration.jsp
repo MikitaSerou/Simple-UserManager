@@ -31,7 +31,7 @@
                     <spring:message code="username" var="userName"/>
                     <form:input type="text" class="form-control form-control-lg" name="userName" id="formGroupExampleInput1"
                                 placeholder='${userName}' path="username"/>
-                    <form:errors path="username" cssClass="error"/>
+
   <%--                  <span class="error"><spring:message code="${notUniqueError}"/></span>--%>
                 </div>
                 <div class="form-group">

@@ -8,8 +8,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="shortcut icon" type="image/x-icon"
-          href="${pageContext.request.contextPath}/resources/images/favicon.ico"/>
     <title><spring:message code="signIn"/></title>
     <link href='<spring:url value="/css/light.css"/>' rel="stylesheet"/>
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
@@ -90,5 +88,6 @@
         <div class="col-sm"></div>
     </div>
 </div>
+<script src="<c:url value="/js/langChangeScript.js"/>"></script>
 </body>
 </html>

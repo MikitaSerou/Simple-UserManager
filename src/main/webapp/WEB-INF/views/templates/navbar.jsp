@@ -15,10 +15,14 @@
             type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:100px">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/" style="font-size: 48px">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/" style="font-size: 40px">
             <spring:message code="main.title"/></a>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="?lang=en"><button type="button" class="btn btn-danger"><spring:message code="lang.en"/></button></a>
+            <a href="?lang=ru"><button type="button" class="btn btn-danger"><spring:message code="lang.ru"/></button></a>
+        </div>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <div style="position:absolute; right: 15px;">
                 <sec:authorize access="isAuthenticated()">
@@ -27,9 +31,9 @@
                              class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
-              <h3 style=" display: inline;">${currentUser.username}&nbsp</h3>
+              <h3 style=" display: inline;">${currentUser.username}&nbsp&nbsp</h3>
                 <a href="${pageContext.request.contextPath}/logout">
-                    <button class="btn btn-danger my-2 my-sm-0" style="display: inline;">
+                    <button class="btn btn-danger my-2 my-sm-0">
                         <spring:message code="logout.button"/></button>
                 </a></div>
                 </sec:authorize>

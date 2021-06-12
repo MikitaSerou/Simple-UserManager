@@ -1,12 +1,12 @@
 $(function () {
-    var currId = document.getElementById('currentUserId').value;
+    let currId = document.getElementById('currentUserId').value;
     console.log(currId)
     $('button#deleteButton[type=submit]').click(function (e) {
         console.log("Delete ajax");
         e.preventDefault();
-        var form = document.forms['userManagementForm'];
-        var formData = new FormData(form);
-        var ajaxReq = $.ajax({
+        let form = document.forms['userManagementForm'];
+        let formData = new FormData(form);
+        let ajaxReq = $.ajax({
             url:document.getElementById('deleteUrl').value,
             type: 'DELETE',
             data: formData,
@@ -14,7 +14,7 @@ $(function () {
             contentType: false,
             processData: false,
             xhr: function () {
-                var xhr = $.ajaxSettings.xhr();
+                let xhr = $.ajaxSettings.xhr();
                 return xhr;
             },
         });

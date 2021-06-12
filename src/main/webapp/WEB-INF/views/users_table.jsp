@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><spring:message code="user.table"/></title>
     <link href='<spring:url value="/css/light.css"/>' rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
@@ -28,8 +28,7 @@
         <input id="unlockUrl" hidden name="unlockUrl" value="${pageContext.request.contextPath}/unlock">
         <input id="deleteUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/delete">
     <table class="table table-striped table-hover">
-        <div class="btn-group" role="group" aria-label="Basic mixed styles example"
-             style="position: absolute; right:9%; top: 20%;">
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <button id="blockButton" type="submit" class="btn btn-warning"><spring:message code="block"/></button>
             <button id="unlockButton" type="submit" class="btn btn-success">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock"
@@ -110,7 +109,6 @@
                             <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0
                             0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
                         </svg>
-                        <spring:message code="status.blocked"/>
                     </c:if>
                     <c:if test="${!user.isLocked}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -118,7 +116,6 @@
                             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1
                             .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
                         </svg>
-                        <spring:message code="status.active"/>
                     </c:if>
                 </td>
             </tr>
