@@ -1,7 +1,8 @@
 $(window).bind('beforeunload', function(){
     let currStatus = document.getElementById('currentUserStatus').value;
-    console.log(currStatus)
+
     if(currStatus === 'false'){
+        console.log(currStatus === 'false')
         window.location.href = '/logout';
     }
 });
