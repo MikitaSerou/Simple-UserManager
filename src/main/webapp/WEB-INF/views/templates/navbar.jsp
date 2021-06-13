@@ -27,23 +27,23 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <spring:message code="lang.now"/>
+                        <span style="font-size: 24px">   <spring:message code="lang.now"/></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="?lang=en">
-                            <spring:message code="lang.en"/>
+                            <span style="font-size: 24px">  <spring:message code="lang.en"/></span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="?lang=ru">
-                            <spring:message code="lang.ru"/>
+                            <span style="font-size: 24px">    <spring:message code="lang.ru"/></span>
                         </a>
                     </div>
                 </li>
                 <sec:authorize access="isAuthenticated()">
-                    <li class="nav-item" style="position: absolute; right: 0;">
+                    <li class="nav-item">
 
                         <a class="nav-link" class="text-danger" href="${pageContext.request.contextPath}/logout">
-                            <span style="color: red"> <spring:message code="logout.button"/></span></a>
+                            <span style="color: red; font-size: 24px"> <spring:message code="logout.button"/></span></a>
                     </li>
                 </sec:authorize>
             </ul>
