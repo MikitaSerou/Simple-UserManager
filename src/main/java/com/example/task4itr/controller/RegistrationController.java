@@ -44,8 +44,6 @@ public class RegistrationController {
                           HttpServletRequest request,
                           Model model) {
         String notEncryptedPass = registrationForm.getPassword();
-        System.err.println(registrationForm.toString());
-        //TODO вынести валидацию в отдельный класс
         if (bindingResult.hasErrors()) {
             return "registration";
         }
