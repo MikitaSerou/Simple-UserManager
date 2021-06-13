@@ -7,12 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -28,7 +28,6 @@ public class User implements UserDetails {
     private String password;
 
     @Transient
-    @NotEmpty(message = "{user.passwordConfirm.empty}")
     private String passwordConfirm;
 
     @Column(name = "e_mail", nullable = false, unique = true)
@@ -46,7 +45,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @Column(name = "account_non_locked", nullable = false)
+    @Column(name = "account_locked", nullable = false)
     private Boolean isLocked;
 
     public User(String username, String password, String email, LocalDateTime registrationDate,
@@ -100,7 +99,7 @@ public class User implements UserDetails {
         return this.password;
     }
 
-    public @NotEmpty(message = "{user.passwordConfirm.empty}") String getPasswordConfirm() {
+    public String getPasswordConfirm() {
         return this.passwordConfirm;
     }
 
@@ -152,7 +151,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setPasswordConfirm(@NotEmpty(message = "{user.passwordConfirm.empty}") String passwordConfirm) {
+    public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
 

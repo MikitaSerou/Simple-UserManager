@@ -22,6 +22,8 @@
     <div class="row justify-content-center align-items-center">
         <div class="col-sm"></div>
         <div class="col-sm-6" style="backdrop-filter: blur(7px); border-radius: 30px">
+            <br/>
+            <br/>
             <h1 align="center"><spring:message code="signUp.entrance.page"/></h1>
             <br/>
             <form:form action="${pageContext.request.contextPath}/registration/" method="post"
@@ -31,15 +33,14 @@
                     <spring:message code="username" var="userName"/>
                     <form:input type="text" class="form-control form-control-lg" name="userName" id="formGroupExampleInput1"
                                 placeholder='${userName}' path="username"/>
-
-  <%--                  <span class="error"><spring:message code="${notUniqueError}"/></span>--%>
+                    <form:errors path="username" cssClass="error" />
                 </div>
                 <div class="form-group">
                     <label class="col-form-label col-form-label-lg mt-4" for="formGroupExampleInput2"><spring:message code="eMail"/></label>
                     <spring:message code="eMail" var="email"/>
                     <form:input type="text" class="form-control form-control-lg" name="email" id="formGroupExampleInput2"
                                 placeholder='${email}' path="email"/>
-                    <form:errors path="email" cssClass="error"/>
+                    <form:errors path="email" cssClass="error" />
                 </div>
                 <div class="form-group">
                     <label class="col-form-label col-form-label-lg mt-4" for="formGroupExampleInput4"><spring:message code="password"/></label>
@@ -55,8 +56,6 @@
                     <form:input type="password" path="passwordConfirm" name="passwordConfirm" class="form-control form-control-lg"
                                 id="formGroupExampleInput5"
                                 placeholder='${passwordConfirm}'/>
-                    <form:errors path="passwordConfirm" cssClass="error"/>
- <%--                   <span class="error"><spring:message code="${passwordsError}"/></span>--%>
                 </div>
                     <br/>
                     <br/>
@@ -75,7 +74,6 @@
                     </div>
                 <br/>
             </form:form>
-
             <div style="display: table; margin: 0 auto; text-align: center">
                 <p class="lead" style="font-size: 14px;">
                     <spring:message code="or"/>

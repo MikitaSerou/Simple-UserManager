@@ -20,15 +20,6 @@ public class Role implements GrantedAuthority {
     @OneToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role(Byte id) {
-        this.id = id;
-    }
-
-    public Role(Byte id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public Role() {
     }
 

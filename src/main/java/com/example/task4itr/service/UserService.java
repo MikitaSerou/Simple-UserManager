@@ -3,23 +3,23 @@ package com.example.task4itr.service;
 import com.example.task4itr.model.User;
 import com.example.task4itr.repository.RoleRepository;
 import com.example.task4itr.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
-@Slf4j
 public class UserService implements UserDetailsService {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -37,11 +37,6 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User with name " + userName + " is not found");
         }
         return user;
-    }
-
-    public User findUserByID(Long userId) {
-        Optional<User> userFromDB = userRepository.findById(userId);
-        return userFromDB.orElse(new User());
     }
 
     public void saveUser(User user) {
@@ -72,12 +67,11 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean deleteUser(Long userId) {
-        if (userRepository.findById(userId).isPresent()) {
-            userRepository.deleteById(userId);
-            return true;
-        }
-        return false;
+    @Transactional
+    public void setNewLoginData(String username){
+        User user = (User) loadUserByUsername(username);
+        user.setLastLoginDate(LocalDateTime.now());
+        saveUser(user);
     }
 
     public void deleteUserById(Long id) {
