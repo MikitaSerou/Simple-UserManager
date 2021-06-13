@@ -39,15 +39,13 @@
                         <spring:message code="login"/></label>
                     <form:input type="text" name="username" class="form-control form-control-lg" id="loginInput"
                                 placeholder='JohnDoe' path="username"/>
-                    <form:errors path="username" cssClass="error"/>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label col-form-label-lg mt-4" for="passwordInput">
                         <spring:message code="password"/></label>
                     <form:input type="password" path="password" name="password" class="form-control form-control-lg"
                                 id="passwordInput"
-                                placeholder='Password'/>
-                    <form:errors path="username" cssClass="error"/>
+                                placeholder='StrongPassword'/>
                 </div>
                 <br/>
                 <br/>

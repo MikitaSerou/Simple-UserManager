@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,8 +26,9 @@ public class User implements UserDetails {
     @NotEmpty(message = "{user.password.empty}")
     private String password;
 
+
+   // @NotEmpty(message = "{user.passwordConfirm.empty}")
     @Transient
-    @NotEmpty(message = "{user.passwordConfirm.empty}")
     private String passwordConfirm;
 
     @Column(name = "e_mail", nullable = false, unique = true)

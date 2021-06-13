@@ -2,7 +2,7 @@ package com.example.task4itr.controller;
 
 import com.example.task4itr.model.User;
 import com.example.task4itr.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +20,9 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
-@Slf4j
 public class RegistrationController {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
     @Qualifier("userService")
@@ -43,17 +44,12 @@ public class RegistrationController {
                           HttpServletRequest request,
                           Model model) {
         String notEncryptedPass = registrationForm.getPassword();
-
+        System.err.println(registrationForm.toString());
         //TODO вынести валидацию в отдельный класс
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (!registrationForm.getPassword().equals(registrationForm.getPasswordConfirm())) {
-            model.addAttribute("passwordsError", "password.match.error");
-            return "registration";
-        }
         if (!userService.addNewUser(registrationForm)) {
-            model.addAttribute("notUniqueError", "unique.error");
             return "registration";
         }
         authenticateUser(registrationForm.getUsername(), notEncryptedPass, request);
@@ -61,6 +57,7 @@ public class RegistrationController {
     }
 
     private void authenticateUser(String username, String password, HttpServletRequest request) {
+        System.err.println(username + " : " + password);
         try {
             request.login(username, password);
         } catch (ServletException ex) {
