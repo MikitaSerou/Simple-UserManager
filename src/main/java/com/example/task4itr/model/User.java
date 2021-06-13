@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -44,7 +45,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @Column(name = "account_non_locked", nullable = false)
+    @Column(name = "account_locked", nullable = false)
     private Boolean isLocked;
 
     public User(String username, String password, String email, LocalDateTime registrationDate,
