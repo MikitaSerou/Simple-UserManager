@@ -25,7 +25,7 @@ public class UsersController {
     @GetMapping
     public String home(@AuthenticationPrincipal UserDetails user, Model model) {
         log.info("GET request /");
-        model.addAttribute("currentUserStatus", userService.checkUserStatusByUserName(user.getUsername()));
+        model.addAttribute("currentUserStatus", !userService.checkUserStatusByUserName(user.getUsername()));
         model.addAttribute("currentUser", user);
         model.addAttribute("users", userService.allUsers());
         return "users_table";
