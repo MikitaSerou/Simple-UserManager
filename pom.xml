@@ -120,6 +120,15 @@
                 </execution>
           </executions>
             </plugin>
+            <plugin>
+        <groupId>com.github.mjeanroy</groupId>
+        <artifactId>node-maven-plugin</artifactId>
+        <version>0.2.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <failOnMissingScript>false</failOnMissingScript>
+        </configuration>
+      </plugin>
         </plugins>
     </build>
 
