@@ -74,6 +74,11 @@ public class UserService implements UserDetailsService {
         saveUser(user);
     }
 
+    public boolean checkUserStatusByUserName(String username){
+        User user = userRepository.findByUsername(username);
+        return user.getLocked();
+    }
+
     public void deleteUserById(Long id) {
         log.info("deleteUserById(Long " + id + ")");
         if (id == null) {
