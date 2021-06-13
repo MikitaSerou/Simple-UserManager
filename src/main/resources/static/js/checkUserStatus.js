@@ -1,6 +1,7 @@
 $(window).bind('beforeunload', function(){
     let currStatus = document.getElementById('currentUserStatus').value;
-    if(currStatus === true){
+    console.log(currStatus)
+    if(currStatus === 'false'){
         console.log("User Blocked")
         window.location = "/logout";
     }
