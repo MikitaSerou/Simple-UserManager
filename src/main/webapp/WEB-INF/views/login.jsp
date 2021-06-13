@@ -86,6 +86,5 @@
         <div class="col-sm"></div>
     </div>
 </div>
-<script src="<c:url value="/js/langChangeScript.js"/>"></script>
 </body>
 </html>
