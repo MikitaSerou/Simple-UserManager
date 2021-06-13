@@ -1,13 +1,5 @@
 $(function () {
     let currId = document.getElementById('currentUserId').value;
-    let currStatus = document.getElementById('currentUserStatus').value;
-
-        if(currStatus === 'false'){
-            window.location = "/logout";
-        }
-
-
-
     console.log(currId)
     $('button#deleteButton[type=submit]').click(function (e) {
         console.log("Delete ajax");

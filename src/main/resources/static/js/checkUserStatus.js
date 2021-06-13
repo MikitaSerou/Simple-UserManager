@@ -1,8 +1,6 @@
-$(window).bind('beforeunload', function(){
+$(function () {
     let currStatus = document.getElementById('currentUserStatus').value;
-    $(window).on('unload', function() {
-        if(currStatus === 'false'){
-            window.location = "/logout";
-        }
-    });
+    if (currStatus === 'false') {
+        window.location = "/logout";
+    }
 });
