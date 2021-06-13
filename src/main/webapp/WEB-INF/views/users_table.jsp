@@ -23,7 +23,7 @@
     <br/>
     <form id="deleteCityForm${city.id}" name="userManagementForm" enctype="text/plain">
         <input id="currentUserId" hidden name="currentUserId" value="${currentUser.id}">
-        <input id="currentUserStatus" value="${currentUser.isLocked}">
+        <input id="currentUserStatus" hidden value="${currentUser.isLocked}">
         <input id="blockUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/block">
         <input id="unlockUrl" hidden name="unlockUrl" value="${pageContext.request.contextPath}/unlock">
         <input id="deleteUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/delete">
