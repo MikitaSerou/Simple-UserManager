@@ -71,7 +71,6 @@ public class UserService implements UserDetailsService {
     public void setNewLoginData(String username){
         User user = (User) loadUserByUsername(username);
         user.setLastLoginDate(LocalDateTime.now());
-        user.setPasswordConfirm("-");
         saveUser(user);
     }
 

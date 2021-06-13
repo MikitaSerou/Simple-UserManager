@@ -26,8 +26,6 @@ public class User implements UserDetails {
     @NotEmpty(message = "{user.password.empty}")
     private String password;
 
-
-   // @NotEmpty(message = "{user.passwordConfirm.empty}")
     @Transient
     private String passwordConfirm;
 
@@ -100,7 +98,7 @@ public class User implements UserDetails {
         return this.password;
     }
 
-    public @NotEmpty(message = "{user.passwordConfirm.empty}") String getPasswordConfirm() {
+    public String getPasswordConfirm() {
         return this.passwordConfirm;
     }
 
@@ -152,7 +150,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setPasswordConfirm(@NotEmpty(message = "{user.passwordConfirm.empty}") String passwordConfirm) {
+    public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
 
