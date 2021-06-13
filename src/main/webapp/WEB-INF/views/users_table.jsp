@@ -21,7 +21,6 @@
 <div class="container-md">
     <br/>
     <br/>
-    <br/>
     <form id="deleteCityForm${city.id}" name="userManagementForm" enctype="text/plain">
         <input id="currentUserId" hidden name="currentUserId" value="${currentUser.id}">
         <input id="blockUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/block">
