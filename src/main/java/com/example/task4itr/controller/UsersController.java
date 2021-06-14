@@ -25,12 +25,10 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping
-    public String home(@AuthenticationPrincipal UserDetails user,
-                       HttpSession session,
-                       Model model) {
+    public String home(@AuthenticationPrincipal UserDetails user, Model model) {
         log.info("GET request /");
+        model.addAttribute("currentUserStatus", !userService.checkUserStatusByUserName(user.getUsername()));
         model.addAttribute("currentUser", user);
-        model.addAttribute("currentUserStatus", user.isAccountNonLocked());
         model.addAttribute("users", userService.allUsers());
         return "users_table";
     }
