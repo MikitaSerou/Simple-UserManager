@@ -18,11 +18,10 @@
 </head>
 <body>
 <jsp:include page="templates/navbar.jsp"/>
-<div class="container" style="min-height: 80%">
+<div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-sm"></div>
         <div class="col-sm-6" style="backdrop-filter: blur(7px); border-radius: 30px">
-            <br/>
             <br/>
             <h1 align="center"><spring:message code="signUp.entrance.page"/></h1>
             <br/>
