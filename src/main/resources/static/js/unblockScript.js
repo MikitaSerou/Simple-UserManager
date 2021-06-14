@@ -26,7 +26,7 @@ $(function () {
             );
         });
         ajaxReq.fail(function (jqXHR) {
-            console.log("Error when try to block  users")
+            console.log("Error when try to unlock  users")
         });
     });
 });

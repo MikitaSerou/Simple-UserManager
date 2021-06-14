@@ -5,8 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,19 +18,15 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.empty}")
     private String username;
 
     @Column(name = "user_password", nullable = false)
-    @NotEmpty(message = "{user.password.empty}")
     private String password;
 
     @Transient
     private String passwordConfirm;
 
     @Column(name = "e_mail", nullable = false, unique = true)
-    @Email(message = "{user.email.invalid}")
-    @NotEmpty(message = "{user.email.empty}")
     private String email;
 
     @Column(name = "registration_date", nullable = false)
@@ -95,7 +89,7 @@ public class User implements UserDetails {
         return this.id;
     }
 
-    public @NotEmpty(message = "{user.password.empty}") String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -103,7 +97,7 @@ public class User implements UserDetails {
         return this.passwordConfirm;
     }
 
-    public @Email(message = "{user.email.invalid}") @NotEmpty(message = "{user.email.empty}") String getEMail() {
+    public String getEMail() {
         return this.email;
     }
 
@@ -143,11 +137,11 @@ public class User implements UserDetails {
         isLocked = locked;
     }
 
-    public void setUsername(@NotEmpty(message = "{user.username.empty}") String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setPassword(@NotEmpty(message = "{user.password.empty}") String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -155,7 +149,7 @@ public class User implements UserDetails {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public void setEMail(@Email(message = "{user.email.invalid}") @NotEmpty(message = "{user.email.empty}") String eMail) {
+    public void setEMail(String eMail) {
         this.email = eMail;
     }
 

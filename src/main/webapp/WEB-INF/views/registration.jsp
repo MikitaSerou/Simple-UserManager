@@ -56,6 +56,7 @@
                     <form:input type="password" path="passwordConfirm" name="passwordConfirm" class="form-control form-control-lg"
                                 id="formGroupExampleInput5"
                                 placeholder='${passwordConfirm}'/>
+                    <form:errors path="passwordConfirm" cssClass="error"/>
                 </div>
                     <br/>
                     <br/>
