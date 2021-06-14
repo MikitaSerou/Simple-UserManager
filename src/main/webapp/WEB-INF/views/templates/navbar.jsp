@@ -44,6 +44,7 @@
 
                         <a class="nav-link" class="text-danger" href="${pageContext.request.contextPath}/logout">
                             <span style="color: red; font-size: 24px"> <spring:message code="logout.button"/></span></a>
+
                     </li>
                 </sec:authorize>
             </ul>
