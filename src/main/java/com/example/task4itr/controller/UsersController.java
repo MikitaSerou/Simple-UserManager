@@ -1,5 +1,6 @@
 package com.example.task4itr.controller;
 
+import com.example.task4itr.model.User;
 import com.example.task4itr.service.UserService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
@@ -25,6 +27,7 @@ public class UsersController {
     @GetMapping
     public String home(@AuthenticationPrincipal UserDetails user, Model model) {
         log.info("GET request /");
+        model.addAttribute("currentUserStatus", !userService.checkUserStatusByUserName(user.getUsername()));
         model.addAttribute("currentUser", user);
         model.addAttribute("users", userService.allUsers());
         return "users_table";
@@ -54,3 +57,4 @@ public class UsersController {
         return new ResponseEntity<>("Users blocked successfully.", HttpStatus.OK);
     }
 }
+

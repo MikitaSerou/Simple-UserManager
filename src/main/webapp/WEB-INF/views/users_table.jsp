@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><spring:message code="user.table"/></title>
     <link href='<spring:url value="/css/light.css"/>' rel="stylesheet"/>
-    <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
@@ -21,9 +21,9 @@
 <div class="container-md">
     <br/>
     <br/>
-    <br/>
     <form id="deleteCityForm${city.id}" name="userManagementForm" enctype="text/plain">
         <input id="currentUserId" hidden name="currentUserId" value="${currentUser.id}">
+        <input id="currentUserStatus" hidden value="${currentUserStatus}">
         <input id="blockUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/block">
         <input id="unlockUrl" hidden name="unlockUrl" value="${pageContext.request.contextPath}/unlock">
         <input id="deleteUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/delete">
@@ -136,5 +136,6 @@
 <script src="<c:url value="/js/blockScript.js"/>"></script>
 <script src="<c:url value="/js/unblockScript.js"/>"></script>
 <script src="<c:url value="/js/deleteScript.js"/>"></script>
+<script src="<c:url value="/js/checkUserStatus.js"/>"></script>
 </body>
 </html>

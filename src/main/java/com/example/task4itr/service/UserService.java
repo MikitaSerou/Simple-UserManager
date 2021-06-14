@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -48,6 +49,14 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
+    public User findFromStorageByUserName(String userName) {
+        return userRepository.findByUsername(userName);
+    }
+
+    public User findUserByEmail(String eMail) {
+        return userRepository.findByEmail(eMail);
+    }
+
     public boolean addNewUser(User user) {
         if (userRepository.findByEmail(user.getEMail()) != null &
                 userRepository.findByUsername(user.getUsername()) != null) {
@@ -61,8 +70,9 @@ public class UserService implements UserDetailsService {
     public User setInitRegistrationParameters(User user) {
         user.setRole(roleRepository.findByName("ROLE_USER"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRegistrationDate(LocalDateTime.now());
-        user.setLastLoginDate(LocalDateTime.now());
+        ZoneId zoneID = ZoneId.of("UTC-3");
+        user.setRegistrationDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
+        user.setLastLoginDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
         user.setIsLocked(false);
         return user;
     }
@@ -70,8 +80,14 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void setNewLoginData(String username){
         User user = (User) loadUserByUsername(username);
-        user.setLastLoginDate(LocalDateTime.now());
+        ZoneId zoneID = ZoneId.of("UTC-3");
+        user.setLastLoginDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
         saveUser(user);
+    }
+
+    public boolean checkUserStatusByUserName(String username){
+        User user = userRepository.findByUsername(username);
+        return user.getLocked();
     }
 
     public void deleteUserById(Long id) {
