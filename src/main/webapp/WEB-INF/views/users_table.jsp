@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <br/>
     <br/>
-    <form name="userManagementForm" enctype="text/plain">
+    <form id="usersTable" name="userManagementForm" enctype="text/plain">
         <input id="currentUserId" hidden name="currentUserId" value="${currentUser.id}">
         <input id="currentUserStatus" hidden value="${currentUserStatus}">
         <input id="blockUrl" hidden name="deleteUrl" value="${pageContext.request.contextPath}/block">
