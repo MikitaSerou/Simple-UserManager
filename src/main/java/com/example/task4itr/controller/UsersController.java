@@ -30,7 +30,7 @@ public class UsersController {
                        Model model) {
         log.info("GET request /");
         model.addAttribute("currentUser", user);
-        model.addAttribute("currentUserStatus", !user.isAccountNonLocked());
+        model.addAttribute("currentUserStatus", user.isAccountNonLocked());
         model.addAttribute("users", userService.allUsers());
         return "users_table";
     }
