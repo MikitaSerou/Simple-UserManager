@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
     public User setInitRegistrationParameters(User user) {
         user.setRole(roleRepository.findByName("ROLE_USER"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        ZoneId zoneID = ZoneId.of("UTC-3");
+        ZoneId zoneID = ZoneId.of("UTC+3");
         user.setRegistrationDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
         user.setLastLoginDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
         user.setIsLocked(false);
@@ -80,7 +80,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void setNewLoginData(String username){
         User user = (User) loadUserByUsername(username);
-        ZoneId zoneID = ZoneId.of("UTC-3");
+        ZoneId zoneID = ZoneId.of("UTC+3");
         user.setLastLoginDate(LocalDateTime.now().atZone(zoneID).toLocalDateTime());
         saveUser(user);
     }
