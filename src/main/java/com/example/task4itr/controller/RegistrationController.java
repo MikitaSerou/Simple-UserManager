@@ -6,6 +6,7 @@ import com.example.task4itr.service.UserValidator;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,8 +42,7 @@ public class RegistrationController {
     @PostMapping
     public String addUser(@ModelAttribute("registrationForm") @Valid User registrationForm,
                           BindingResult bindingResult,
-                          HttpServletRequest request,
-                          Model model) {
+                          HttpServletRequest request) {
         String notEncryptedPass = registrationForm.getPassword();
         userValidator.validate(registrationForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -57,6 +57,7 @@ public class RegistrationController {
     }
 
     private void authenticateUser(String username, String password, HttpServletRequest request) {
+        SecurityContextHolder.getContext().setAuthentication(null);
         log.info("User authentication: " + username);
         try {
             request.login(username, password);
