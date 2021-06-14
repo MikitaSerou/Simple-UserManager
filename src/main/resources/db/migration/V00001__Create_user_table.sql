@@ -1,4 +1,4 @@
--- MYSQL
+-- MYSQL script for Flyway migration
 create table role
 (
     id   TINYINT auto_increment

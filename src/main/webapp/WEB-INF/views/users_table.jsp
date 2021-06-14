@@ -18,7 +18,7 @@
 </head>
 <body>
 <jsp:include page="templates/navbar.jsp"/>
-<div class="container-md">
+<div class="container-fluid">
     <br/>
     <br/>
     <form name="userManagementForm" enctype="text/plain">
@@ -80,7 +80,7 @@
                    <tr id="row${user.id}">
                 </c:otherwise>
             </c:choose>
-                <td style="content-align: center">
+                <td>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="chose" name="userId"
                                value="${user.id}">

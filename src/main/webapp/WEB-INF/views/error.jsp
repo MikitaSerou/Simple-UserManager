@@ -28,14 +28,11 @@
             <br/>
             <h1 align="center"><spring:message code="error.page"/> ${status} ${error}</h1>
             <br/>
-            <div style="display: table; margin: 0 auto; text-align: center">
-            <div class="d-grid gap-2">
-                <a href="${pageContext.request.contextPath}/">
-                <button class="btn btn-lg btn-success" >
-                    <spring:message code="to.main.page"/></button>
-                </a>
-            </div>
-            </div>
+            <br/>
+            <br/>
+            <img src='<spring:url value="https://gifki.info/uploads/posts/2017-06/1498693660_2955-sho-opyat.gif"/>'
+                 width="384px"
+                 height="344px" class="rounded" alt="kek">
         </div>
         <div class="col-sm"></div>
     </div>

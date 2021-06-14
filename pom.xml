@@ -64,10 +64,16 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>-->
+
+        <!--I removed Flyway dependency temporary because heroku cloud database version not supported
+        by this framework. But i have used tis in process of writing code and want to save this for future
+         fixes with local database usage.-->
+
+        <!--        <dependency>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-core</artifactId>
+                </dependency>-->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -141,5 +147,4 @@
       </plugin>
         </plugins>
     </build>
-
 </project>

@@ -33,7 +33,7 @@ public class UserValidator implements Validator {
         User user = (User) o;
         checkUsername(user.getUsername(), errors);
         checkEmail(user.getEMail(), errors);
-        checkPassword(user.getPassword(), errors);
+        checkPassword(errors);
         checkPasswordConfirm(user.getPassword(), user.getPasswordConfirm(), errors);
     }
 
@@ -57,7 +57,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "user.email.empty");
     }
 
-    private void checkPassword(String password, Errors errors) {
+    private void checkPassword(Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "user.password.empty");
     }
 
