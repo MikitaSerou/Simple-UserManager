@@ -17,7 +17,6 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes("currentUser")
 public class UsersController {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(UsersController.class);
@@ -30,20 +29,9 @@ public class UsersController {
                        HttpSession session,
                        Model model) {
         log.info("GET request /");
-        setUserInSessionAttribute(session, user);
+        model.addAttribute("currentUser", user);
         model.addAttribute("users", userService.allUsers());
         return "users_table";
-    }
-
-    private void setUserInSessionAttribute(HttpSession session, UserDetails user) {
-        if (session.getAttribute("currentUser") == null) {
-            if (!user.getUsername().equals("anonymousUser")) {
-                session.setAttribute("currentUser", user);
-                if (session.getAttribute("currentUser") != null) {
-                    log.info("Set User in session: " + user.toString());
-                }
-            }
-        }
     }
 
     @DeleteMapping("/delete")
