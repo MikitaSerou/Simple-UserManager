@@ -13,6 +13,11 @@ $(function () {
             cache: false,
             contentType: false,
             processData: false,
+            statusCode: {
+                423: function () {
+                    window.location='/logout';
+                },
+            },
             xhr: function () {
                 let xhr = $.ajaxSettings.xhr();
                 return xhr;

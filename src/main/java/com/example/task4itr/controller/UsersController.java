@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
@@ -23,6 +22,12 @@ public class UsersController {
 
     @Autowired
     private UserService userService;
+
+
+    @ModelAttribute("currentUser")
+    public UserDetails getPerson(@AuthenticationPrincipal UserDetails user){
+        return userService.findFromStorageByUserName(user.getUsername());
+    }
 
     @GetMapping
     public String home(@AuthenticationPrincipal UserDetails user, Model model) {
@@ -35,24 +40,36 @@ public class UsersController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteUsers(@RequestParam("userId") Long[] usersIds) {
+    public ResponseEntity<String> deleteUsers(@ModelAttribute("currentUser") User user,
+                                              @RequestParam("userId") Long[] usersIds) {
         log.warn("DELETE request /delete");
+        if (user.getIsLocked()){
+            return new ResponseEntity<>("Current User is locked.", HttpStatus.LOCKED);
+        }
         Arrays.stream(usersIds).forEach(id -> userService.deleteUserById(id));
         return new ResponseEntity<>("Users deleted successfully.", HttpStatus.OK);
     }
 
     @PatchMapping("/unlock")
     @ResponseBody
-    public ResponseEntity<String> unlockUsers(@RequestParam("userId") Long[] usersIds) {
+    public ResponseEntity<String> unlockUsers(@ModelAttribute("currentUser") User user,
+            @RequestParam("userId") Long[] usersIds) {
         log.warn("PATCH request /unlock");
+        if (user.getIsLocked()){
+            return new ResponseEntity<>("Current User is locked.", HttpStatus.LOCKED);
+       }
         Arrays.stream(usersIds).forEach(id -> userService.unlockUser(id));
         return new ResponseEntity<>("Users unlocked successfully.", HttpStatus.OK);
     }
 
     @PatchMapping("/block")
     @ResponseBody
-    public ResponseEntity<String> blockUsers(@RequestParam("userId") Long[] usersIds) {
+    public ResponseEntity<String> blockUsers(@ModelAttribute("currentUser") User user,
+            @RequestParam("userId") Long[] usersIds) {
         log.warn("PATCH request /block");
+        if (user.getIsLocked()){
+            return new ResponseEntity<>("Current User is locked.", HttpStatus.LOCKED);
+        }
         Arrays.stream(usersIds).forEach(id -> userService.blockUser(id));
         return new ResponseEntity<>("Users blocked successfully.", HttpStatus.OK);
     }
