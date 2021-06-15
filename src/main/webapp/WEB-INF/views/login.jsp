@@ -8,6 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><spring:message code="signIn"/></title>
     <link href='<spring:url value="/css/light.css"/>' rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
@@ -19,11 +20,8 @@
 <jsp:include page="templates/navbar.jsp"/>
 <div class="container">
     <div class="row justify-content-center align-items-center">
-    </div>
-    <div class="row justify-content-center align-items-center">
         <div class="col-sm"></div>
-        <div class="col-sm-4">
-            <br/>
+        <div class="col-sm-6">
             <br/>
             <h1 align="center"><spring:message code="signIn.header"/></h1>
             <br/>
@@ -32,7 +30,7 @@
                     <spring:message code="login.error"/>
                 </div>
             </c:if>
-            <form:form name="f" method="post" action="${pageContext.request.contextPath}/login" class="field"
+            <form:form method="post" action="${pageContext.request.contextPath}/login"
                        modelAttribute="loginForm">
                 <div class="form-group">
                     <label class="col-form-label col-form-label-lg mt-4" for="loginInput">
@@ -50,7 +48,7 @@
                 <br/>
                 <br/>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-lg btn-success" type="submit" name="submit" value="submit" formmethod="post">
+                    <button class="btn btn-lg btn-success" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                              class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
